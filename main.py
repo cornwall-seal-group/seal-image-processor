@@ -1,5 +1,5 @@
 import os
-
+from image.process import process_existing_image
 # Image processing
 ROOT_FOLDER = '../seal-images/'
 
@@ -20,10 +20,17 @@ ROOT_FOLDER = '../seal-images/'
 
 
 def process_all_existing_images():
-    list_files(ROOT_FOLDER)
+    originals = list_orignal_files(ROOT_FOLDER)
+
+    for img_path in originals:
+        split_path = img_path.split('/')
+        seal_name = split_path[2]
+        print seal_name
+        print img_path
+        #process_existing_image(seal_name, img_path)
 
 
-def list_files(dir):
+def list_orignal_files(dir):
     r = []
     subdirs = [x[0] for x in os.walk(dir)]
     for subdir in subdirs:
@@ -33,7 +40,7 @@ def list_files(dir):
             if (len(files) > 0):
                 for file in files:
                     r.append(subdir + "/" + file)
-    print r
+    return r
 
 
 if __name__ == '__main__':

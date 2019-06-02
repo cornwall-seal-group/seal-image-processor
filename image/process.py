@@ -6,57 +6,62 @@ from image.crop import crop_image
 from image.normalise import normalise_image
 from image_meta.store import store_seal_img_metadata, store_seal_metadata
 
-UPLOAD_FOLDER = '../seal-images/'
+IMAGES_FOLDER = '../seal-images/'
 ORIGINAL_IMG_FOLDER = 'originals/'
 PREDICTIONS_IMG_FOLDER = 'predictions/'
+EXT = '.jpg'
 
 
 def process_image(app, seal_name, img_to_upload):
 
     # Create a unique filename for the image
     unique_img_name = str(uuid.uuid4())
-    ext = '.jpg'
-    img_name = unique_img_name + ext
+    img_name = unique_img_name + EXT
 
     img = Image.open(img_to_upload).convert('RGB')
     saved_path = save_original_image(img_name, img, seal_name)
 
     app.logger.info('saved original image to: ' + saved_path)
 
-    prediction_images = process_predictions(seal_name, saved_path)
+    prediction_images = process_predictions(
+        img, seal_name, saved_path, unique_img_name)
 
     processed_images = [img_name] + prediction_images
 
     # Save metadata of seal and its predictions
-    seal_folder = UPLOAD_FOLDER + seal_name
+    seal_folder = IMAGES_FOLDER + seal_name
     store_seal_img_metadata(seal_folder, seal_name, processed_images)
 
     # Save seal name for reference so we know what seals we have images for
-    store_seal_metadata(UPLOAD_FOLDER, seal_name)
+    store_seal_metadata(IMAGES_FOLDER, seal_name)
 
     return {
         "id": unique_img_name
     }
 
 
-def process_existing_image(seal_name, img_path):
+def process_existing_image(seal_name, img_path, unique_img_name):
 
+    img_name = unique_img_name + EXT
+    img = Image.open(img_path)
     # Remove previously stored row in seal's CSV file
 
     # Re-find the predictions based on the original image, process and save the images
-    processed_images = process_predictions(seal_name, img_path)
+    prediction_images = process_predictions(
+        img, seal_name, img_path, unique_img_name)
+
+    processed_images = [img_name] + prediction_images
 
     # Update seal's metadata file with new images
-
     # Save metadata of seal and its predictions
-    seal_folder = UPLOAD_FOLDER + seal_name
+    seal_folder = IMAGES_FOLDER + seal_name
     store_seal_img_metadata(seal_folder, seal_name, processed_images)
 
     # Save seal name for reference so we know what seals we have images for
-    store_seal_metadata(UPLOAD_FOLDER, seal_name)
+    store_seal_metadata(IMAGES_FOLDER, seal_name)
 
 
-def process_predictions(seal_name, original_image_path):
+def process_predictions(img, seal_name, original_image_path, unique_img_name):
     processed_images = []
     head_predictions = get_head_predictions(original_image_path)
 
@@ -71,7 +76,7 @@ def process_predictions(seal_name, original_image_path):
 
         # Create unique name for img (seal + index + prediction probability)
         predicted_img_name = unique_img_name + '-' + \
-            prediction_index + '-' + str(prediction.probability) + ext
+            prediction_index + '-' + str(prediction.probability) + EXT
 
         save_normalised_image(predicted_img_name, normalised_img, seal_name)
 
@@ -89,7 +94,7 @@ def create_new_folder(local_dir):
 
 def save_original_image(img_name, img, seal_name):
     seal_upload_folder = seal_name + '/' + ORIGINAL_IMG_FOLDER
-    upload_folder = UPLOAD_FOLDER + seal_upload_folder
+    upload_folder = IMAGES_FOLDER + seal_upload_folder
 
     create_new_folder(upload_folder)
 
@@ -102,7 +107,7 @@ def save_original_image(img_name, img, seal_name):
 def save_normalised_image(img_name, img, seal_name):
     seal_upload_folder = seal_name + '/' + PREDICTIONS_IMG_FOLDER
 
-    upload_folder = UPLOAD_FOLDER + seal_upload_folder
+    upload_folder = IMAGES_FOLDER + seal_upload_folder
     create_new_folder(upload_folder)
 
     saved_path = os.path.join(upload_folder, img_name)

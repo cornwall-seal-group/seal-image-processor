@@ -28,7 +28,8 @@ def list_files(dir):
     subdirs = [x[0] for x in os.walk(dir)]
     for subdir in subdirs:
         # Only look through the orignals folders
-        if '/originals/' in subdir:
+        print subdir
+        if 'originals' in subdir:
             files = os.walk(subdir).next()[2]
             if (len(files) > 0):
                 for file in files:

@@ -33,7 +33,7 @@ def process_all_existing_images():
         print seal_name
         print img_path
         print unique_image_name
-        #process_existing_image(seal_name, img_path)
+        process_existing_image(seal_name, img_path, unique_image_name)
 
 
 def list_orignal_files(dir):

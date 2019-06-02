@@ -67,7 +67,7 @@ def process_predictions(img, seal_name, original_image_path, unique_img_name):
 
     predictions = head_predictions['predictions']
 
-    prediction_index = 0
+    prediction_index = 1
     # Loop through all the predictions
     for prediction in predictions:
 
@@ -81,6 +81,7 @@ def process_predictions(img, seal_name, original_image_path, unique_img_name):
         save_normalised_image(predicted_img_name, normalised_img, seal_name)
 
         processed_images.append(predicted_img_name)
+        prediction_index += 1
 
     return processed_images
 

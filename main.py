@@ -26,7 +26,7 @@ def process_all_existing_images():
         split_path = img_path.split('/')
         seal_name = split_path[2]
 
-        image_name = split_path[3]
+        image_name = split_path[4]
         split_image = image_name.split('.')
         unique_image_name = split_image[0]
 

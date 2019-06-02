@@ -76,7 +76,7 @@ def process_predictions(img, seal_name, original_image_path, unique_img_name):
 
         # Create unique name for img (seal + index + prediction probability)
         predicted_img_name = unique_img_name + '-' + \
-            prediction_index + '-' + str(prediction.probability) + EXT
+            str(prediction_index) + '-' + str(prediction.probability) + EXT
 
         save_normalised_image(predicted_img_name, normalised_img, seal_name)
 

@@ -1,9 +1,11 @@
 import json
 import csv
+import config
+ITERATION_NAME = config.ITERATION_NAME
 
 
 def store_seal_img_metadata(folder, seal_name, processed_images):
-    metadata_file = seal_name + '.csv'
+    metadata_file = seal_name + '-' + ITERATION_NAME + '.csv'
     file_path = folder + '/' + metadata_file
 
     with open(file_path, 'a+') as csv_file:

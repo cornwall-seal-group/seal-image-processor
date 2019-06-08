@@ -9,7 +9,7 @@ import config
 
 IMAGES_FOLDER = '../seal-images/'
 ORIGINAL_IMG_FOLDER = 'originals/'
-PREDICTIONS_IMG_FOLDER = config.ITERATION_NAME
+PREDICTIONS_IMG_FOLDER = config.ITERATION_ID
 EXT = '.jpg'
 
 

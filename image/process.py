@@ -7,7 +7,7 @@ from image.normalise import normalise_image
 from image_meta.store import store_seal_img_metadata, store_seal_metadata
 import config
 
-IMAGES_FOLDER = '../seal-images/'
+IMAGES_FOLDER = config.IMAGES_FOLDER
 ORIGINAL_IMG_FOLDER = 'originals/'
 PREDICTIONS_IMG_FOLDER = config.ITERATION_ID
 EXT = '.jpg'

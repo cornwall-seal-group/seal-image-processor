@@ -1,6 +1,6 @@
 import os
 import config
-from image.process import process_existing_image
+from image.process import process_existing_image, process_image
 
 # seal-images/
 #   LF1/
@@ -17,7 +17,15 @@ from image.process import process_existing_image
 # Create an image for each prediction and save with the prediction as the name
 # Save the original image and the predictions along with the CSV
 
+NEW_IMAGES_FOLDER = config.NEW_IMAGES_FOLDER
 IMAGES_FOLDER = config.IMAGES_FOLDER
+
+
+def process_images():
+    for subdir, dirs, files in os.walk(NEW_IMAGES_FOLDER):
+        for file in files:
+            img_path = os.path.join(subdir, file)
+            process_image(subdir, img_path)
 
 
 def process_all_existing_images():
@@ -51,4 +59,4 @@ def list_orignal_files(dir):
 
 
 if __name__ == '__main__':
-    process_all_existing_images()
+    process_images()

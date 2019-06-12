@@ -59,4 +59,4 @@ def list_orignal_files(dir):
 
 
 if __name__ == '__main__':
-    process_images()
+    process_all_existing_images()

@@ -1,15 +1,14 @@
 import os
+import config
 from image.process import process_existing_image
-# Image processing
-ROOT_FOLDER = '../seal-images/'
 
 # seal-images/
 #   LF1/
 #       originals/
-#       predictions/
+#       {iteration}/
 #   LF28/
 #       originals/
-#       predictions/
+#       {iteration}/
 
 # Handle folder with images ready to be processed
 
@@ -18,9 +17,11 @@ ROOT_FOLDER = '../seal-images/'
 # Create an image for each prediction and save with the prediction as the name
 # Save the original image and the predictions along with the CSV
 
+IMAGES_FOLDER = config.IMAGES_FOLDER
+
 
 def process_all_existing_images():
-    originals = list_orignal_files(ROOT_FOLDER)
+    originals = list_orignal_files(IMAGES_FOLDER)
 
     for img_path in originals:
         split_path = img_path.split('/')

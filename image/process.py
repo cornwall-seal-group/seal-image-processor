@@ -42,7 +42,7 @@ def process_image(seal_name, img_to_upload):
 def process_existing_image(seal_name, img_path, unique_img_name):
 
     img_name = unique_img_name + EXT
-    img = Image.open(img_path)
+    img = Image.open(img_path).convert('RGB')
     # Remove previously stored row in seal's CSV file
 
     # Re-find the predictions based on the original image, process and save the images

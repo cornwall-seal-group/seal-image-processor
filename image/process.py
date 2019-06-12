@@ -13,7 +13,7 @@ PREDICTIONS_IMG_FOLDER = config.ITERATION_ID
 EXT = '.jpg'
 
 
-def process_image(app, seal_name, img_to_upload):
+def process_image(seal_name, img_to_upload):
 
     # Create a unique filename for the image
     unique_img_name = str(uuid.uuid4())
@@ -21,8 +21,6 @@ def process_image(app, seal_name, img_to_upload):
 
     img = Image.open(img_to_upload).convert('RGB')
     saved_path = save_original_image(img_name, img, seal_name)
-
-    app.logger.info('saved original image to: ' + saved_path)
 
     prediction_images = process_predictions(
         img, seal_name, saved_path, unique_img_name)

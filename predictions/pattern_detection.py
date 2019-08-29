@@ -7,7 +7,7 @@ iteration_name = config.ITERATION_NAME
 prediction_key = config.PREDICTION_KEY
 
 
-def get_head_predictions(image_path):
+def get_pattern_predictions(image_path):
     predictor = CustomVisionPredictionClient(prediction_key, endpoint=endpoint)
 
     # Open the image and get back the prediction results.

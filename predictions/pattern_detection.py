@@ -14,7 +14,6 @@ def get_pattern_predictions(image_path):
     with open(image_path, mode="rb") as test_data:
         results = predictor.detect_image(project_id, iteration_name, test_data)
 
-    # TODO: order the predictions in order to aid readability
 
     return {
         "predictions": results.predictions

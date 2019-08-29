@@ -19,6 +19,12 @@ def process_image(seal_name, img_path, image_name):
     split_image = image_name.split('.')
     unique_image_name = split_image[0]
 
+    if img.width > 1000:
+        basewidth = 900
+        wpercent = (basewidth/float(img.size[0]))
+        hsize = int((float(img.size[1])*float(wpercent)))
+        img = img.resize((basewidth, hsize), Image.ANTIALIAS)
+
     # Find the predictions based on the original image, process and save the images
     process_predictions(img, seal_name, img_path, unique_image_name)
 

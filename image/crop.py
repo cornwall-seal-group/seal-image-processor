@@ -24,14 +24,14 @@ def crop_image(img, prediction):
     lower = upper + (b_height*image_height)
 
     if (right - left < 1):
-        print 'image_width: ' + image_width
+        print 'image_width: ' + str(image_width)
         if (image_width - right > 1):
             right = right+1
         else:
             right = image_width
 
     if (lower - upper < 1):
-        print 'image_height: ' + image_height
+        print 'image_height: ' + str(image_height)
         if (image_height - lower > 1):
             lower = lower+1
         else:

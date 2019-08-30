@@ -1,4 +1,3 @@
-
 # We receive the prediction bounding box as the following values in %
 # This needs to convert the %'s to pixels and crop the image accordingly
 # {
@@ -25,14 +24,16 @@ def crop_image(img, prediction):
     lower = upper + (b_height*image_height)
 
     if (right - left < 1):
+        print 'image_width: ' + image_width
         if (image_width - right > 1):
             right = right+1
         else:
             right = image_width
 
-    if (upper - lower < 1):
+    if (lower - upper < 1):
+        print 'image_height: ' + image_height
         if (image_height - lower > 1):
-            lower = lower-1
+            lower = lower+1
         else:
             lower = image_height
 
